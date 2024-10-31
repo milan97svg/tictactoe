@@ -90,15 +90,22 @@ const endConditions = (data) => {
     // tie
     // game not over yet
     if(checkWinner(data)) {
+        // adjust the dom to reflect win
         return true;
     } else if (data.round === 9) {
+        // adjust the dom to reflect tie
         return true;
     }
     return false;
 }
 
 const checkWinner = (data) => {
-
+    let result = false;
+    winningConditions.forEach(condition => {
+        if(data.board[condition[0]] === data.board[condition[1]] && data.board[condition[1]] === data.board[condition[2]])
+            result = true;
+    })
+    return result;
 }
 
 // need to determine current player
