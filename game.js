@@ -1,3 +1,15 @@
+// define wincondtions
+const winningConditions = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6]
+]
+
 // first step, need to attach event (submit) listener to the form to get user data
 const form = document.querySelector('#myForm')
 
@@ -65,6 +77,13 @@ const playMove = (box,data) => {
     console.log(box,data)   
 
     // check win conditions
+    if(endConditions(data)) {
+        // adjust DOM to reflect endconditions
+    }
+}
+
+const endConditions = (data) => {
+
 }
 
 
