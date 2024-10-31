@@ -23,7 +23,12 @@ const initializeVariables = (data) => {
     data.gameOver = false;
 }
 
-
+const resetDom = () => {
+    document.querySelectorAll('.box').forEach(box => {
+        box.className = "box";
+        box.textContent = "";
+    })
+}
 
 // atttach event listeners to each gamebox
 const addEventListenerToGameBoard = (data) => {
@@ -31,6 +36,13 @@ const addEventListenerToGameBoard = (data) => {
         box.addEventListener('click', (event) => {
             playMove(event.target,data)
         })
+    })
+
+    const resetGameBtn = document.querySelector('#resetBtn')
+
+    resetGameBtn.addEventListener('click', () => {
+    initializeVariables(data);
+    resetDom();
     })
 }
 
@@ -44,6 +56,7 @@ const initializeGame = (data) => {
 
     // add event listeners to the gameboard
     addEventListenerToGameBoard(data);
+    
 }
 
 const playMove = (box,data) => {
@@ -132,4 +145,11 @@ const changePlayer = (data) => {
     let displayTurnText = data.currentPlayer === "X" ? data.player1Name : data.player2Name
     adjustDom('displayTurn', `${displayTurnText}'s turn`)
 }
+
+const newGameBtn = document.querySelector('#restartBtn')
+
+
+newGameBtn.addEventListener('click', () => {
+    location.reload()
+});
 
