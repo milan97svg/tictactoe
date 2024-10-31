@@ -64,10 +64,14 @@ const playMove = (box,data) => {
     data.round++;
     console.log(box,data)   
 
-    // check win conditions
+    // check end conditions
     if(endConditions(data)) {
-        // adjust DOM to reflect endconditions
+        return;
     }
+
+    // change current player
+    // change the dom, and change data.player
+    changePlayer(data);
 }
 
 // define wincondtions
@@ -91,8 +95,13 @@ const endConditions = (data) => {
     // game not over yet
     if(checkWinner(data)) {
         // adjust the dom to reflect win
+        let winnerName = 
+            data.currentPlayer === "X" ? data.player1Name : data.player2Name;
+        adjustDom('displayTurn', winnerName + ' has won the game');
         return true;
     } else if (data.round === 9) {
+        adjustDom('displayTurn', "It's a Tie!");
+        data.gameOver = true;
         // adjust the dom to reflect tie
         return true;
     }
@@ -102,19 +111,24 @@ const endConditions = (data) => {
 const checkWinner = (data) => {
     let result = false;
     winningConditions.forEach(condition => {
-        if(data.board[condition[0]] === data.board[condition[1]] && data.board[condition[1]] === data.board[condition[2]])
+        if(data.board[condition[0]] === data.board[condition[1]] &&
+            data.board[condition[1]] === data.board[condition[2]]) {
+            data.gameOver = true;
             result = true;
+        }
     })
     return result;
 }
 
-// need to determine current player
+const adjustDom = (className, textContent) => {
+    const elem = document.querySelector(`.${className}`);
+    elem.textContent = textContent;
+}
 
-// after each move, check win conditions and if not met, set other player as active
-
-// set win conditions for the game
-
-
-
-
+const changePlayer = (data) => {
+    data.currentPlayer = data.currentPlayer === "X" ? "O" : "X";
+    // adjust the dom
+    let displayTurnText = data.currentPlayer === "X" ? data.player1Name : data.player2Name
+    adjustDom('displayTurn', `${displayTurnText}'s turn`)
+}
 
