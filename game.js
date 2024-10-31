@@ -1,15 +1,4 @@
 // first step, need to attach event (submit) listener to the form to get user data
-
-// atttach event listeners to each gamebox
-
-// initialize the game
-
-// set win conditions for the game
-
-// need to determine current player
-
-// after each move, check win conditions and if not met, set other player as active
-
 const form = document.querySelector('#myForm')
 
 form.addEventListener('submit', (event) => {
@@ -22,6 +11,21 @@ form.addEventListener('submit', (event) => {
     initializeGame(data);
 })
 
+
+
+// atttach event listeners to each gamebox
+const addEventListenerToGameBoard = (data) => {
+    document.querySelectorAll('.box').forEach(box => {
+        box.addEventListener('click', (event) => {
+            playMove(event.target,data)
+        })
+    })
+}
+
+
+
+
+// initialize the game
 const initializeVariables = (data) => {
     data.board = [0,1,2,3,4,5,6,7,8]
     data.player1 = "X";
@@ -35,6 +39,27 @@ const initializeGame = (data) => {
     // initialize game variable
     initializeVariables(data);
 
-    console.log(data);
     // add event listeners to the gameboard
+    addEventListenerToGameBoard(data);
 }
+
+
+
+// need to determine current player
+
+// after each move, check win conditions and if not met, set other player as active
+
+// set win conditions for the game
+
+const playMove = (box,data) => {
+    // is game over? if game over, dont do anything
+    if(data.gameOver) {
+        return
+    }
+    // check if game box has a letter in it
+
+    console.log(box,data)   
+}
+
+
+
